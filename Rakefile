@@ -17,20 +17,21 @@ Jeweler::Tasks.new do |gem|
   gem.name = "bio-bgzf"
   gem.homepage = "http://github.com/lomereiter/bioruby-bgzf"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Reading/writing BGZF blocks}
+  gem.description = %Q{BGZF compression is used nowadays only for providing random access to BAM format. However, it is completely independent from the format, and can be used for arbitrary data format. The gem allows to read BGZF blocks from streams and pack strings into blocks, aiming to facilitate introducing BGZF compression for Ruby users.}
   gem.email = "lomereiter@gmail.com"
   gem.authors = ["Artem Tarasov"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+require 'rspec/core'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = FileList['spec/**/*_spec.rb']
 end
+
+task :test => :spec
 
 task :default => :test
 
